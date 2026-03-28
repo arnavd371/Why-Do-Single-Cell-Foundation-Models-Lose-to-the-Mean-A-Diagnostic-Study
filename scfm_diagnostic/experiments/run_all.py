@@ -77,7 +77,7 @@ def main(argv=None) -> None:
     # 1. Load and preprocess data
     # ------------------------------------------------------------------
     print("[1/9] Loading Replogle K562 dataset …")
-    from scfm_diagnostic.data.replogle_loader import load_replogle_k562
+    from scfm_diagnostic.data.replogle_loader import load_norman as load_replogle_k562
     from scfm_diagnostic.data.preprocessor import preprocess, get_mean_control_profile
 
     adata = load_replogle_k562(cache_dir=args.data_dir)
@@ -137,7 +137,7 @@ def main(argv=None) -> None:
                 pred = scgpt_wrapper.predict_perturbation(control_adata, pert)
                 if pred is None:
                     continue
-                mask = adata.obs["perturbation"] == pert
+                mask = adata.obs["condition"] == pert
                 cells = adata[mask].X
                 if hasattr(cells, "toarray"):
                     cells = cells.toarray()
@@ -199,9 +199,9 @@ def main(argv=None) -> None:
     pert_means = np.vstack(
         [
             np.asarray(
-                adata[adata.obs["perturbation"] == p].X.toarray()
-                if hasattr(adata[adata.obs["perturbation"] == p].X, "toarray")
-                else adata[adata.obs["perturbation"] == p].X
+                adata[adata.obs["condition"] == p].X.toarray()
+                if hasattr(adata[adata.obs["condition"] == p].X, "toarray")
+                else adata[adata.obs["condition"] == p].X
             ).mean(axis=0)
             for p in (all_perts[: min(50, len(all_perts))])
         ]

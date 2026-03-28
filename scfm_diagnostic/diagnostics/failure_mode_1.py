@@ -68,7 +68,7 @@ def compute_finetuning_loss_landscape(
         if true_profiles is not None:
             true_mean = true_profiles[i]
         elif adata_full is not None:
-            mask = adata_full.obs["perturbation"] == pert
+            mask = adata_full.obs["condition"] == pert
             cells = adata_full[mask].X
             if hasattr(cells, "toarray"):
                 cells = cells.toarray()

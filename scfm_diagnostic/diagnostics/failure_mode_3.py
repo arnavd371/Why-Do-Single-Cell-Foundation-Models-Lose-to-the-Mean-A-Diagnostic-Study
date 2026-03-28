@@ -69,7 +69,7 @@ def analyze_tokenization_information_loss(
     ----------
     adata:
         AnnData object.  ``adata.X`` should be log-normalised expression.
-        ``adata.obs["perturbation"]`` identifies the perturbation of each cell.
+        ``adata.obs["condition"]`` identifies the perturbation of each cell.
     n_bins:
         Number of discrete expression bins (matching scGPT default of 51).
 
@@ -87,7 +87,7 @@ def analyze_tokenization_information_loss(
         X = X.toarray()
     X = np.asarray(X, dtype=float)
 
-    perts = adata.obs["perturbation"].values
+    perts = adata.obs["condition"].values
     unique_perts = np.unique(perts)
 
     # Compute per-perturbation mean profiles

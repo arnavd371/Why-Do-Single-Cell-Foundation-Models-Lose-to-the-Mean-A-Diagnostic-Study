@@ -54,7 +54,7 @@ def run_full_evaluation(
         ``delta_pearson_r``.
     """
     # Filter to perturbations that actually exist in adata
-    available_perts = set(adata.obs["perturbation"].unique())
+    available_perts = set(adata.obs["condition"].unique())
     valid_test_perts = [p for p in test_perts if p in available_perts]
     if len(valid_test_perts) < len(test_perts):
         missing = set(test_perts) - set(valid_test_perts)
@@ -66,7 +66,7 @@ def run_full_evaluation(
     rows = []
     for pert in valid_test_perts:
         # True profile
-        pert_cells = adata[adata.obs["perturbation"] == pert].X
+        pert_cells = adata[adata.obs["condition"] == pert].X
         if hasattr(pert_cells, "toarray"):
             pert_cells = pert_cells.toarray()
         true_profile = np.asarray(pert_cells).mean(axis=0)  # (n_genes,)
