@@ -68,8 +68,9 @@ def _make_synthetic_adata(
     X_raw = (rng.poisson(4, size=(n_cells, n_genes)) + 1).astype(float)
 
     obs = pd.DataFrame({
-        "perturbation": obs_perts,
-        "control": obs_ctrl,
+    "perturbation": obs_perts,
+    "condition": obs_perts,   
+    "control": obs_ctrl,
     })
     var = pd.DataFrame(index=[f"gene_{i}" for i in range(n_genes)])
 
