@@ -95,7 +95,7 @@ def test_preprocessor(adata: anndata.AnnData) -> anndata.AnnData:
     """Preprocessor runs without error and returns a smaller AnnData."""
     from scfm_diagnostic.data.preprocessor import preprocess, get_mean_control_profile
 
-    processed = preprocess(adata, n_top_genes=100, normalize=True)
+    processed = preprocess(adata, n_top_genes=100, normalize=True, min_genes=10, min_cells=1)
     assert processed.n_vars <= 100, "HVG selection should reduce gene count."
     assert processed.n_obs > 0, "Should have at least some cells after filtering."
 
