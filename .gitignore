@@ -35,3 +35,5 @@ paper/figures/
 *.swo
 .idea/
 .vscode/
+
+scgpt_weights/
