@@ -30,6 +30,7 @@ import scipy.sparse
 warnings.filterwarnings("ignore")
 
 START = time.time()
+MAX_SMOKE_TEST_DURATION_SECONDS = 120
 
 # =============================================================================
 # Helpers
@@ -333,7 +334,9 @@ def main() -> None:
     test_recalibration(processed)
 
     elapsed = time.time() - START
-    assert elapsed < 120, f"Smoke test took {elapsed:.1f}s > 2 minutes!"
+    assert elapsed < MAX_SMOKE_TEST_DURATION_SECONDS, (
+        f"Smoke test took {elapsed:.1f}s > {MAX_SMOKE_TEST_DURATION_SECONDS}s!"
+    )
 
     print(f"\n  ✓ Completed in {elapsed:.1f}s")
     print("\nSmoke test passed.")

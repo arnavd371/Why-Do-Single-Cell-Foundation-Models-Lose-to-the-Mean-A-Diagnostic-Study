@@ -61,7 +61,7 @@ def _download_dataset(dest: Path) -> None:
         if not dest.exists():
             raise RuntimeError("gdown reported success but file is missing.")
         return
-    except Exception as exc:  # noqa: BLE001
+    except (OSError, RuntimeError) as exc:
         first_error = exc
 
     # Fallback: plain HTTP download
@@ -70,7 +70,7 @@ def _download_dataset(dest: Path) -> None:
 
         urllib.request.urlretrieve(_FIGSHARE_URL, str(dest))
         return
-    except Exception as exc2:  # noqa: BLE001
+    except OSError as exc2:
         raise RuntimeError(
             f"Could not download the Replogle K562 dataset.\n"
             f"  gdown error : {first_error}\n"

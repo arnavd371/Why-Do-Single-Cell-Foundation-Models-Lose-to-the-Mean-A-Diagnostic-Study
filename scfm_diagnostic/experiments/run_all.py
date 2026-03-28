@@ -151,7 +151,7 @@ def main(argv=None) -> None:
             else:
                 warnings.warn("No valid scGPT predictions on validation set.", stacklevel=2)
 
-        except Exception as exc:  # noqa: BLE001
+        except (ImportError, FileNotFoundError, RuntimeError) as exc:
             warnings.warn(f"scGPT loading failed: {exc}", stacklevel=2)
     else:
         print("[5/9] --model-dir not provided, skipping scGPT evaluation.")

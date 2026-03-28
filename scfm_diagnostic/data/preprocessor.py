@@ -12,6 +12,9 @@ import numpy as np
 import scanpy as sc
 
 
+_TARGET_COUNT_SUM = 1e4  # Cells normalised to this total count
+
+
 def preprocess(
     adata: anndata.AnnData,
     n_top_genes: int = 5000,
@@ -46,7 +49,7 @@ def preprocess(
     if normalize:
         sc.pp.filter_cells(adata, min_genes=200)
         sc.pp.filter_genes(adata, min_cells=3)
-        sc.pp.normalize_total(adata, target_sum=1e4)
+        sc.pp.normalize_total(adata, target_sum=_TARGET_COUNT_SUM)
         sc.pp.log1p(adata)
 
     sc.pp.highly_variable_genes(adata, n_top_genes=n_top_genes)
