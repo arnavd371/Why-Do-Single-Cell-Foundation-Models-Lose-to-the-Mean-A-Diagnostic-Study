@@ -9,3 +9,6 @@ embed_dim: 512
 pca_components: 50
 clash_threshold: 2.0
 output_dir: results/
+data_path: data/cache/norman/perturb_processed.h5ad
+condition_col: condition
+control_col: control
