@@ -166,6 +166,8 @@ def list_perturbations(
 ) -> List[str]:
     """Return sorted list of unique perturbation names.
 
+    Supports both 'condition' and 'perturbation' as the obs column name.
+
     Parameters
     ----------
     adata:
@@ -181,12 +183,27 @@ def list_perturbations(
     List[str]
         Sorted perturbation names.
     """
-    perts = adata.obs["condition"].unique().tolist()
+    # Support both column naming conventions
+    if "condition" in adata.obs.columns:
+        col = "condition"
+    elif "perturbation" in adata.obs.columns:
+        col = "perturbation"
+    else:
+        raise KeyError(
+            "Cannot find perturbation column. "
+            f"Expected 'condition' or 'perturbation'. "
+            f"Available columns: {list(adata.obs.columns)}"
+        )
+
+    perts = adata.obs[col].unique().tolist()
+
     if exclude_control:
-        perts = [p for p in perts if not adata.obs[
-            adata.obs["condition"] == p]["control"].all()]
+        control_labels = {"ctrl", "control", "non-targeting"}
+        perts = [p for p in perts if p not in control_labels]
+
     if single_only:
         perts = [p for p in perts if "+" not in p]
+
     return sorted(perts)
 
 
