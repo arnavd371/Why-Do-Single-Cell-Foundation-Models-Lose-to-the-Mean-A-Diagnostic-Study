@@ -135,6 +135,9 @@ def main(argv=None) -> None:
             val_true_list = []
             for pert in val_perts:
                 pred = scgpt_wrapper.predict_perturbation(control_adata, pert)
+                print("Running:", pert)
+                if pred is None:
+                    print("FAILED:", pert)
                 if pred is None:
                     continue
                 mask = adata.obs["condition"] == pert
