@@ -1,0 +1,11 @@
+n_top_genes: 5000
+n_bins: 51
+n_test_perts: 50
+knn_k: 5
+recalibration_method: "linear"
+seed: 42
+batch_size: 64
+embed_dim: 512
+pca_components: 50
+clash_threshold: 2.0
+output_dir: results/

@@ -1,0 +1,14 @@
+torch>=2.0.0
+scanpy>=1.9.0
+anndata>=0.9.0
+numpy
+pandas
+scipy
+scikit-learn
+sentence-transformers
+matplotlib
+seaborn
+umap-learn
+pyyaml
+gdown
+# scgpt — install via: pip install git+https://github.com/bowang-lab/scGPT.git
