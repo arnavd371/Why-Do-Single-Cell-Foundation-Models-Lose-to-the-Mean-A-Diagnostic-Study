@@ -20,6 +20,13 @@ NORMAN_FOLDER_ID = "1M0QLP6dKKw3Fsw2rofyxzoBBMrst1fNE"
 NORMAN_FILENAME = "norman.h5ad"
 
 
+def get_control_cells(adata: anndata.AnnData) -> anndata.AnnData:
+    if "control" in adata.obs.columns:
+        return adata[adata.obs["control"].astype(bool)].copy()
+    col = "condition" if "condition" in adata.obs.columns else "perturbation"
+    return adata[adata.obs[col].isin(["ctrl", "control"])].copy()
+
+
 def _download_norman(cache_dir: str) -> str:
     """Download Norman dataset from Google Drive if not already cached.
 
