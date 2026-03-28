@@ -98,5 +98,6 @@ def get_split_data(
         raise ValueError(f"split must be one of {list(split_map.keys())}, got {split!r}.")
 
     perts_in_split = set(split_map[split])
-    mask = adata.obs["perturbation"].isin(perts_in_split)
+    col = "condition" if "condition" in adata.obs.columns else "perturbation"
+    mask = adata.obs[col].isin(perts_in_split)
     return adata[mask].copy()
